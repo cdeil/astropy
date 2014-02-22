@@ -7,7 +7,7 @@ Models And Fitting (`astropy.modeling`)
 Introduction
 ============
 
-`~astropy.modeling` provides a framework for representing models and
+`astropy.modeling` provides a framework for representing models and
 performing model evaluation and fitting. It supports 1D and 2D models
 and fitting with parameter constraints.
 
@@ -168,8 +168,8 @@ weighting of datapoints, fixing or linking parameters, and placing lower or
 upper limits on parameters. For more information on these, take a look at the
 :doc:`fitting` documentation.
 
-Using `modeling`
-================
+Using `astropy.modeling`
+========================
 
 .. toctree::
    :maxdepth: 1

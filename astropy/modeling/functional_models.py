@@ -1206,14 +1206,13 @@ class Beta2D(Parametric2DModel):
 
 
 def custom_model_1d(func, func_fit_deriv=None):
-    """
-    Create a one dimensional model from a user defined function. The
-    parameters of the model will be inferred from the arguments of
+    """Create a one dimensional model from a user defined function.
+    
+    The parameters of the model will be inferred from the arguments of
     the function.
 
-    ..note ::
-        All model parameters have to be defined as keyword arguments
-        with default values in the model function.
+    All model parameters have to be defined as keyword arguments
+    with default values in the model function.
 
     If you want to use parameter sets in the model, the parameters should be
     treated as lists or arrays.
@@ -1221,19 +1220,24 @@ def custom_model_1d(func, func_fit_deriv=None):
     Parameters
     ----------
     func : function
-        Function which defines the model.  It should take one positional
+        Function which defines the model. It should take one positional
         argument (the independent variable in the model), and any number of
-        keyword arguments (the parameters).  It must return the value
+        keyword arguments (the parameters). It must return the value
         of the model (typically as an array, but can also be a scalar for
-        scalar inputs).  This corresponds to the `ParametricModel.eval` method.
+        scalar inputs).
+        This corresponds to the ``ParametricModel.eval`` method.
     func_fit_deriv : function, optional
         Function which defines the Jacobian derivative of the model. I.e., the
-        derivive with respect to the *parameters* of the model.  It should
+        derivive with respect to the *parameters* of the model. It should
         have the same argument signature as `func`, but should return a
         sequence where each element of the sequence is the derivative
-        with respect to the correseponding argument. This corresponds to the
-        `ParametricModel.fit_deriv` method.
+        with respect to the correseponding argument.
+        This corresponds to the ``ParametricModel.fit_deriv`` method.
 
+    Returns
+    -------
+    model : Parametric1DModel
+        Model class instance
 
     Examples
     --------

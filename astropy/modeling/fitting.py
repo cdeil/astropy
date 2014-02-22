@@ -7,9 +7,9 @@ as input and define a ``__call__`` method which fits the model to the data and c
 model's parameters attribute. The idea is to make this extensible and allow
 users to easily add other fitters.
 
-Linear fitting is done using Numpy's `~numpy.linalg.lstsq` function.
-There are currently two non-linear fitters which use `~scipy.optimize.leastsq` and
-`~scipy.optimize.slsqp` functions in scipy.optimize.\
+Linear fitting is done using the `numpy.linalg.lstsq` function.
+There are currently two non-linear fitters which use `scipy.optimize.leastsq` and
+`scipy.optimize.fmin_slsqp` functions from `scipy.optimize`.
 """
 
 from __future__ import (absolute_import, unicode_literals, division,
@@ -163,7 +163,8 @@ class LinearLSQFitter(Fitter):
 
     Parameters
     ----------
-    model : an instance of `~astropy.modeling.core.ParametricModel`
+    model : `~astropy.modeling.core.ParametricModel`
+        The model.
 
     Raises
     ------
@@ -349,16 +350,6 @@ class NonLinearLSQFitter(Fitter):
     """
     A class performing non-linear least squares fitting using the
     Levenberg-Marquardt algorithm implemented in `scipy.optimize.leastsq`.
-
-    Parameters
-    ----------
-    model : a fittable `~astropy.modeling.core.ParametricModel`
-        model to fit to data
-
-    Raises
-    ------
-    ModelLinearityError
-        A linear model is passed to a nonlinear fitter
     """
 
     supported_constraints = ['fixed', 'tied', 'bounds']
@@ -377,6 +368,16 @@ class NonLinearLSQFitter(Fitter):
         super(NonLinearLSQFitter, self).__init__()
 
     def errorfunc(self, fps, *args):
+        """
+        Compute the sum of the squared residuals.
+
+        Parameters
+        ----------
+        fps : list
+            parameters returned by the fitter
+        args : list
+            input coordinates
+        """
         model = args[0]
         self._fitter_to_model_params(model, fps)
         meas = args[-1]
@@ -443,6 +444,11 @@ class NonLinearLSQFitter(Fitter):
         ------
         model_copy : `ParametricModel`
             a copy of the input model with parameters set by the fitter
+
+        Raises
+        ------
+        ModelLinearityError
+            A linear model is passed to a nonlinear fitter
         """
         if isinstance(model, _CompositeModel):
             raise NotImplementedError("Fitting of composite models is not implemented in astropy v.0.3.")
@@ -529,11 +535,6 @@ class SLSQPFitter(Fitter):
     parameters, as well as bounded constraints. Uses
     `scipy.optimize.fmin_slsqp`.
 
-    Raises
-    ------
-    ModelLinearityError
-        A linear model is passed to a nonlinear fitter
-
     References
     ----------
     .. [1] http://www.netlib.org/toms/733
@@ -552,7 +553,7 @@ class SLSQPFitter(Fitter):
 
     def errorfunc(self, fps, *args):
         """
-        Compute the sum of the squared residuals
+        Compute the sum of the squared residuals.
 
         Parameters
         ----------
@@ -601,6 +602,11 @@ class SLSQPFitter(Fitter):
         ------
         model_copy : `ParametricModel`
             a copy of the input model with parameters set by the fitter
+
+        Raises
+        ------
+        ModelLinearityError
+            A linear model is passed to a nonlinear fitter
         """
         if isinstance(model, _CompositeModel):
             raise NotImplementedError("Fitting of composite models is not implemented in astropy v.0.3.")

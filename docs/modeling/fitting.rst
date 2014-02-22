@@ -8,10 +8,6 @@ instance of `~astropy.modeling.core.ParametricModel` as input and modify
 `~astropy.modeling.core.ParametricModel.parameters` attribute. The idea is to
 make this extensible and allow users to easily add other fitters.
 
-Linear fitting is done using Numpy's `~numpy.linalg.lstsq` function.  There are
-currently two non-linear fitters which use `~scipy.optimize.leastsq` and
-`~scipy.optimize.fmin_slsqp`.
-
 The rules for passing input to fitters are:
 
 * Non-linear fitters work only with single data sets.

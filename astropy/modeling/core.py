@@ -684,11 +684,6 @@ class LabeledInput(dict):
     labels : list of strings
         names matching each coordinate in data
 
-    Returns
-    -------
-    data : LabeledData
-        a dict of input data and their assigned labels
-
     Examples
     --------
     >>> x,y = np.mgrid[:5, :5]

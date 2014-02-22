@@ -1200,6 +1200,8 @@ class _SIPModel(SerialCompositeModel):
 
 
 class SIP(_SIPModel):
+    __doc__ = _SIPModel.__doc__
+    
     def __init__(self, crpix, a_order, a_coeff, b_order, b_coeff,
                  ap_order=None, ap_coeff=None, bp_order=None, bp_coeff=None,
                  param_dim=1):
@@ -1209,6 +1211,7 @@ class SIP(_SIPModel):
                                   bp_order, bp_coeff, param_dim=1)
 
     def inverse(self):
+        """Inverse transform."""
         if (self.ap_order is not None and self.ap_coeff is not None and
                 self.bp_order is not None and self.bp_coeff is not None):
             return InverseSIP(self.crpix, self.a_order, self.a_coeff,
@@ -1256,6 +1259,8 @@ class SIP(_SIPModel):
 
 
 class InverseSIP(_SIPModel):
+    __doc__ = _SIPModel.__doc__
+
     def __init__(self, crpix, a_order, a_coeff, b_order, b_coeff,
                  ap_order, ap_coeff, bp_order, bp_coeff,
                  param_dim=1):
@@ -1266,6 +1271,7 @@ class InverseSIP(_SIPModel):
                                          bp_order, bp_coeff, param_dim=1)
 
     def inverse(self):
+        """Inverse transform."""
         if (self.a_order is not None and self.a_coeff is not None and
                 self.b_order is not None and self.bp_coeff is not None):
             return SIP(self.crpix, self.a_order, self.a_coeff,

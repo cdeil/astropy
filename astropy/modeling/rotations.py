@@ -3,7 +3,7 @@
 """
 Implements spherical rotations, defined in WCS Paper II [1]_
 
-RotateNative2Celestial and RotateCelestial2Native follow the convention
+`RotateNative2Celestial` and `RotateCelestial2Native` follow the convention
 in WCS paper II to rotate to/from a native sphere and the celestial sphere.
 
 The user interface uses angles in degrees but the values are stored internally
