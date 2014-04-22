@@ -5,13 +5,13 @@
 .. _vo-samp-example_clients:
 
 
-Communication between integrated clients objects
-------------------------------------------------
+Communication between integrated client objects
+-----------------------------------------------
 
 As shown in :doc:`example_table_image`, the |SAMPIntegratedClient| class can be
 used to communicate with other SAMP-enabled tools such as `TOPCAT
 <http://www.star.bris.ac.uk/~mbt/topcat/>`_, `SAO Ds9
-<http://hea-www.harvard.edu/RD/ds9>`_, or `Aladin Desktop
+<http://ds9.si.edu/>`_, or `Aladin Desktop
 <http://aladin.u-strasbg.fr>`_.
 
 In this section, we look at how we can set up two |SAMPIntegratedClient|

@@ -7,7 +7,7 @@ World Coordinate System (`astropy.wcs`)
 .. _wcslib: http://www.atnf.csiro.au/~mcalabre/WCS/
 .. _Paper IV: http://www.atnf.csiro.au/people/mcalabre/WCS/index.html
 .. _SIP: http://irsa.ipac.caltech.edu/data/SPITZER/docs/files/spitzer/shupeADASS.pdf
-.. _ds9: http://hea-www.harvard.edu/RD/ds9/
+.. _ds9: http://ds9.si.edu/
 
 Introduction
 ============

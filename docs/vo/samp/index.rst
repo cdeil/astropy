@@ -4,9 +4,9 @@
 
 .. _vo-samp:
 
-***************************************************************
-SAMP (Simple Application Messaging Protocol (`astropy.vo.samp`)
-***************************************************************
+****************************************************************
+SAMP (Simple Application Messaging Protocol) (`astropy.vo.samp`)
+****************************************************************
 
 Introduction
 ============
@@ -14,8 +14,8 @@ Introduction
 `astropy.vo.samp` is an IVOA SAMP (Simple Application Messaging Protocol)
 messaging system implementation in Python. It provides classes to easily:
 
-1. instantiate one or multiple Hubs;
-2. interface an application or script to a running Hub;
+1. instantiate one or multiple hubs;
+2. interface an application or script to a running hub;
 3. create and manage a SAMP client.
 
 `astropy.vo.samp` provides also a stand-alone program ``samp_hub`` capable to
@@ -23,7 +23,7 @@ instantiate a persistent hub.
 
 SAMP is a protocol that is used by a number of other tools such as
 `TOPCAT <http://www.star.bris.ac.uk/~mbt/topcat/>`_,
-`SAO Ds9 <http://hea-www.harvard.edu/RD/ds9>`_,
+`SAO Ds9 <http://ds9.si.edu/>`_,
 and `Aladin <http://aladin.u-strasbg.fr>`_, which means that it is possible to
 send and receive data to and from these tools. The `astropy.vo.samp` package
 also supports the 'web profile' for SAMP, which means that it can be used to

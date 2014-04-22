@@ -11,12 +11,12 @@ In the following examples, we make use of:
 
 * `TOPCAT <http://www.star.bris.ac.uk/~mbt/topcat/>`_, which is a tool to
   explore tabular data.
-* `SAO Ds9 <http://hea-www.harvard.edu/RD/ds9>`_, which is an image
+* `SAO Ds9 <http://ds9.si.edu/>`_, which is an image
   visualization tool, which can also overplot catalogs.
 * `Aladin Desktop <http://aladin.u-strasbg.fr>`_, which is another tool that
   can visualize images and catalogs.
 
-TOPCAT and Aladin will run a SAMP Hub is none is found, so for the following
+TOPCAT and Aladin will run a SAMP Hub if none is found, so for the following
 examples you can either start up one of these applications first, or you can
 start up the `astropy.vo.samp` hub. You can start this using the following
 command::
@@ -46,8 +46,9 @@ which is a human-readable name for the table. The URL can be a local URL
 .. note:: To construct a local URL, you can also make use of ``urlparse`` as
           follows::
 
-                >>> import urlparse
-                >>> params["url"] = urlparse.urljoin('file:', os.path.abspath("aj285677t3_votable.xml"))
+             >>> import urlparse
+             >>> import os.path
+             >>> params["url"] = urlparse.urljoin('file:', os.path.abspath("aj285677t3_votable.xml"))
 
 Now we can set up the message itself. This includes the type of message (here
 we use ``table.load.votable`` which indicates that a VO table should be loaded,
@@ -64,7 +65,7 @@ Finally, we can broadcast this to all clients that are listening for
     >>> client.notify_all(message)
 
 The above message will actually be broadcast to all applications connected via
-SAMP. For example, if we open `SAO Ds9 <http://hea-www.harvard.edu/RD/ds9>`_ in
+SAMP. For example, if we open `SAO Ds9 <http://ds9.si.edu/>`_ in
 addition to TOPCAT, and we run the above command, both applications will load
 the table. We can use the
 :meth:`~astropy.vo.samp.integrated_client.SAMPIntegratedClient.get_registered_clients` method to
@@ -214,7 +215,7 @@ reads the table once it has::
         client.disconnect()
 
     # Print out table
-    print t
+    print(t)
 
 Sending an image to Ds9 and Aladin
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -261,8 +262,8 @@ Once finished, we should make sure we disconnect from the hub::
 
     >>> client.disconnect()
 
-Receiving a table from Ds9 or Aladin
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Receiving an image from Ds9 or Aladin
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Receiving images over SAMP is identical to `Receiving a table from TOPCAT`_,
 with the execption that the message type should be ``image.load.fits`` instead
