@@ -12,7 +12,7 @@ from numpy import testing as npt
 from ... import units as u
 from ..distances import Distance
 from .. import transformations as t
-from ..builtin_frames import ICRS, FK5, FK4, FK4NoETerms, Galactic
+from ..builtin_frames import ICRS, FK5, FK4, FK4NoETerms, Galactic, CIRS
 from .. import representation as r
 from ..baseframe import frame_transform_graph
 from ...tests.helper import pytest
@@ -294,3 +294,52 @@ def test_fk5_galactic():
     indirect = fk5.transform_to(FK4NoETerms).transform_to(Galactic)
 
     assert direct.separation(indirect).degree < 1.e-10
+
+
+def test_icrs_cirs():
+    """
+    Check a few cases of ICRS<->CIRS for consistency.
+
+    Also includes the CIRS<->CIRS transforms at differnt times, as those go
+    through ICRS
+    """
+    from ...time import Time
+    from ...utils import NumpyRNGContext
+
+    with NumpyRNGContext(12345):
+        inod = ICRS(ra=np.random.rand(100)*360*u.deg,
+                     dec=(np.random.rand(100)*180-90)*u.deg)
+        iwd = ICRS(ra=inod.ra, dec=inod.dec, distance=np.random.rand(100)*u.pc)
+
+    cframe1 = CIRS()
+    cirsnod = inod.transform_to(cframe1)  #uses the default time
+    #first do a round-tripping test
+    inod2 = cirsnod.transform_to(ICRS)
+    npt.assert_allclose(inod.ra, inod2.ra)
+    npt.assert_allclose(inod.dec, inod2.dec)
+
+    #now check that a different time yields different answers
+    cframe2 = CIRS(obstime=Time('J2005', scale='utc'))
+    cirsnod2 = inod.transform_to(cframe2)
+    assert not np.any(np.allclose(cirsnod.ra, cirsnod2.ra))
+    assert not np.any(np.allclose(cirsnod.dec, cirsnod2.dec))
+
+    # parallax effects should be included, so with and w/o distance should be different
+    cirswd = iwd.transform_to(cframe1)
+    assert not np.any(np.allclose(cirswd.ra, cirsnod.ra))
+    assert not np.any(np.allclose(cirswd.dec, cirsnod.dec))
+    # but we *lose* the distance, meaning dimensionless unit vectors
+    assert np.all(cirswd.distance.value == 1)
+
+    #now check that the cirs self-transform works as expected
+    cirsnod3 = cirsnod.transform_to(cframe1)  # should be a no-op
+    npt.assert_allclose(cirsnod.ra, cirsnod3.ra)
+    npt.assert_allclose(cirsnod.dec, cirsnod3.dec)
+
+    cirsnod4 = cirsnod.transform_to(cframe2)  # should be different
+    assert not np.any(np.allclose(cirsnod4.ra, cirsnod.ra))
+    assert not np.any(np.allclose(cirsnod4.dec, cirsnod.dec))
+
+    cirsnod5 = cirsnod4.transform_to(cframe1)  # should be back to the same
+    npt.assert_allclose(cirsnod.ra, cirsnod5.ra)
+    npt.assert_allclose(cirsnod.dec, cirsnod5.dec)
