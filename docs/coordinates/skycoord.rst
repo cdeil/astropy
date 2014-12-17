@@ -688,7 +688,6 @@ generate our random data.
 
     >>> from astropy import units as u
     >>> from astropy.coordinates import SkyCoord
-    >>> import matplotlib.pyplot as plt
     >>> import numpy as np
 
 We now generate random data for visualisation. For RA this is done in the range
@@ -724,8 +723,9 @@ a markersize of 2 and an alpha value of 0.3. We use a figure with an x-y ratio
 that is well suited for such a projection and we move the title upwards from 
 its usual position to avoid overlap with the axis labels.
 
-.. doctest-requires:: matplotlib
+.. doctest-skip::
 
+    >>> import matplotlib.pyplot as plt
     >>> plt.figure(figsize=(8,4.2))
     >>> plt.subplot(111, projection="aitoff")
     >>> plt.title("Aitoff projection of our random data")
@@ -796,7 +796,6 @@ As in the last example, we first import the required packages.
 
     >>> from astropy import units as u
     >>> from astropy.coordinates import SkyCoord
-    >>> import matplotlib.pyplot as plt
     >>> import numpy as np
 
 We now generate random data for visualisation using
@@ -826,8 +825,9 @@ and make sure they are between :math:`-\pi` and :math:`\pi`:
 
 We use the same plotting setup as in the last example:
 
-.. doctest-requires:: matplotlib
+.. doctest-skip::
 
+    >>> import matplotlib.pyplot as plt
     >>> plt.figure(figsize=(8,4.2))
     >>> plt.subplot(111, projection="aitoff")
     >>> plt.title("Aitoff projection of our random data")
